@@ -49,54 +49,82 @@ function playRound (npcChoice, playerChoice){
             switch (npcChoice){
                 case 0: //npc rock
                     console.log("Its a draw")
-                    return 0;
+                    return "Its a draw";
                 case 1: //npc paper
                     console.log("You lose, NPC wins")
-                    return 0;
+                    npcTally ++;
+                    return "You lose, NPC wins";
                 case 2: //npc scissor
-                    console.log("You win!")
-                    return 1;
+                    console.log("You win!");
+                    yourTally++;
+                    return "You win!";
             }
         case 1:  //player: paper
             switch (npcChoice){
                 case 1: //npc paper
-                    console.log("Its a draw")
-                    return 0;
+                    console.log("Its a draw");
+                    return "Its a draw";
                 case 2: //npc scissor
-                    console.log("You lose, NPC wins")
-                    return 0;
+                    console.log("You lose, NPC wins");
+                    npcTally++;
+                    return "You lose, NPC wins";
                 case 0: //npc rock
-                    console.log("You win!")
-                    return 1;
+                    console.log("You win!");
+                    yourTally++;
+                    return "You win!";
             }
 
         case 2:  //player: scissor
             switch (npcChoice){
                 case 2: //npc scissor
-                    console.log("Its a draw")
-                    return 0;
+                    console.log("Its a draw");
+                    return "Its a draw";
                 case 0: //npc rock
-                    console.log("You lose, NPC wins")
-                    return 0;
+                    console.log("You lose, NPC wins");
+                    npcTally++;
+                    return "You lose, NPC wins";
                 case 1: //npc paper
-                    console.log("You win!")
-                    return 1;
+                    console.log("You win!");
+                    yourTally++;
+                    return "You win!";
             }
     }
 }
 
-function game(){
-    for (i=0; i<5; i++){
-        console.log("Game "+i);
+function game(playerChoice){
+        // console.log("Game "+i);
         let npcChoice = getComputerChoice();
-        let playerChoice = prompt("Pick your weapon:");
-
         console.log("NPC Choice: "+ getChoiceString(npcChoice));
         console.log("Your Choice: "+ playerChoice);
-        playRound(npcChoice,getChoiceNumber(playerChoice));
-        console.log('\n');
-    }
+        gameResult = document.createElement('p');
+        gameResult.textContent = playRound(npcChoice,getChoiceNumber(playerChoice)) + " | NPC Choice: "+ getChoiceString(npcChoice) + " | Your Choice: "+ playerChoice;
+        document.getElementById("Score").appendChild(gameResult);
+        gameTally.textContent = "You-"+yourTally + " | NPC-"+npcTally;
+
+        if(yourTally+npcTally == 5){
+            yourTally>npcTally? 
+                alert('You are the winner') :
+                alert('NPC is the winner');
+            yourTally = 0;
+            npcTally = 0;
+        }
 }
 
 
-game();
+// game();
+
+
+// Add event listners
+let npcTally = 0;
+let yourTally = 0;
+let gameTally = document.createElement('h2');
+gameTally.textContent = "You-"+yourTally + " | NPC-"+npcTally;
+document.getElementById("Score").appendChild(gameTally);
+
+const imageButtons = document.querySelectorAll('button'); 	// returns node list. It looks and acts much like an array.
+imageButtons.forEach((button) => {
+    button.addEventListener('click',()=>{
+        console.log(button.id);
+        game(button.id);
+    });
+});

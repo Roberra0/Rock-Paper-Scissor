@@ -1,0 +1,22 @@
+body{
+    background-image: url("images/vista.jpeg");
+}
+img {
+    border-radius: 9px;
+    width: 200px;
+    height: 200px;
+}
+
+button {
+    border-radius: 9px;
+}
+
+#Score{
+    text-align: center;
+}
+
+#images, h1, h2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
